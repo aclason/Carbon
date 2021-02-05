@@ -39,3 +39,10 @@ TreeCarbonFN <- function(Species,DBH,HT){
   }
   return(Sp_C)
 } 
+
+
+## THIS IS A TEST, CAN YOU SEE?
+Min_SOC_v2 <- function(Soc, BD, depth, CoarseFrags){
+  Min_SOC <- Soc * BD * depth * (1- CoarseFrags)
+  return(Min_SOC)
+}
