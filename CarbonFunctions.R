@@ -54,6 +54,12 @@ TreeBiomassFN <- function(Species,DBH,HT){
   return(Sp_C)
 }
 
+t <- vector()
+for(i in 1:nrow(A1trees)){
+  t[i] <- TreeBiomassFN(Species = A1trees[i,Species], DBH= A1trees[i,DBH], HT= A1trees[i,Height] )
+}
+
+
 #non-merchantable trees in tonnes/ha - not done
 SmallTreeBiomassFn <- function(Species,Density){
   if(is.na(Species)){
@@ -80,6 +86,7 @@ SmallTreeBiomassFn <- function(Species,Density){
       }else{
         smTree_bio <-0
       }
+  return()
   }
 
 
