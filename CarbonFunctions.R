@@ -1,10 +1,5 @@
 #### Carbon Functions
 
-#I'm making changes
-change <-1
-
-
-
 #Mineral soil carbon:
 Min_SOC <- function(Soc, BD, depth, CoarseFrags){
   Min_SOC <- Soc * BD * depth * (1- CoarseFrags)
@@ -12,6 +7,7 @@ Min_SOC <- function(Soc, BD, depth, CoarseFrags){
 }
 
 #Tree carbon - could make this more generic by accepting different ways of writing species for instance.
+#biomass in kg
 TreeBiomassFN <- function(Species,DBH,HT){
   if(is.na(Species)){
     print(paste("Species is not found"))
@@ -57,4 +53,41 @@ TreeBiomassFN <- function(Species,DBH,HT){
   }
   return(Sp_C)
 }
+
+#non-merchantable trees in tonnes/ha - not done
+SmallTreeBiomassFn <- function(Species,Density){
+  if(is.na(Species)){
+    print(paste("Species is not found"))
+    Sp_C <- NA
+  } else if(Species=="Pl"){
+      if(Status=="L"){
+        smTree_bio <- 13.4
+      } else{
+        smTree_bio <- 0.1
+      }
+    }else if(Species=="Bl"){
+        if(Status=="L"){
+          smTree_bio <- 33.6
+          } else{ 
+            smTree_bio <- 0.1
+          }
+      }else if(Species=="Sx"){
+            if(Status=="L"){
+              smTree_bio <- 33.6
+            } else{ 
+              smTree_bio <- 0.1
+          }
+      }else{
+        smTree_bio <-0
+      }
+  }
+
+
+
+
+
+
+
+
+
 
