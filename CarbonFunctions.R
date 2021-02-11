@@ -6,6 +6,7 @@ Min_SOC <- function(Soc, BD, depth, CoarseFrags){
   return(Min_SOC)
 }
 
+
 #Tree carbon - could make this more generic by accepting different ways of writing species for instance.
 #biomass in kg
 TreeBiomassFN <- function(Species,DBH,HT){
@@ -53,48 +54,3 @@ TreeBiomassFN <- function(Species,DBH,HT){
   }
   return(Sp_C)
 }
-
-t <- vector()
-for(i in 1:nrow(A1trees)){
-  t[i] <- TreeBiomassFN(Species = A1trees[i,Species], DBH= A1trees[i,DBH], HT= A1trees[i,Height] )
-}
-
-
-#non-merchantable trees in tonnes/ha - not done
-SmallTreeBiomassFn <- function(Species,Density){
-  if(is.na(Species)){
-    print(paste("Species is not found"))
-    Sp_C <- NA
-  } else if(Species=="Pl"){
-      if(Status=="L"){
-        smTree_bio <- 13.4
-      } else{
-        smTree_bio <- 0.1
-      }
-    }else if(Species=="Bl"){
-        if(Status=="L"){
-          smTree_bio <- 33.6
-          } else{ 
-            smTree_bio <- 0.1
-          }
-      }else if(Species=="Sx"){
-            if(Status=="L"){
-              smTree_bio <- 33.6
-            } else{ 
-              smTree_bio <- 0.1
-          }
-      }else{
-        smTree_bio <-0
-      }
-  return()
-  }
-
-
-
-
-
-
-
-
-
-
