@@ -55,8 +55,207 @@ TreeBiomassFN <- function(Species,DBH,HT){
   return(Sp_C)
 }
 
+# Standing dead (SD) carbon
+# Biomass is calculated using Ung et al. 2008 allometric equations. A decay class and species specificstructural reduction
+# factor is applied to each of the components of the allometric equation i.e. bark, bole, top. This accounts for the loss 
+# of biomass through decay (Domke et al. 2011). A species and decay class density reduction factor is applied, this 
+# accounts for the density loss through decay (Harmon et al. 2011). Carbon concentration is 0.5 (Harmon et al. 2013).
 
-# cwdCARBON (T/ha) = volume(m3/ha)
+# SDCarbon (Mg/ha) = BIOMASS x SRF x DCRF x Cconc
+# SDCarbon (Mg/ha) = ((Ywood*SRF) + (Ybark*SRF) + (Yfoliage*SRF) + (Ybranches*SRF)) X DCRF X Cconc
+
+SDcarbonFN <- function(Species,Tree_class,DBH,HT){
+  if(is.na(Species)){
+    print(paste("Species is not found"))
+    SD_Sp_TC_C <- NA
+  } else if (Species=="At"){
+    if (Tree_class == "3"){
+      SD_Sp_TC_C <-(((0.0143*DBH^1.9369*HT^1.0579)*1)+((0.0063*DBH^2.0744*HT^0.6691)*0.92)+
+                      ((0.0150*DBH^2.9068*HT^-0.6306)*1))*0.97*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0143*DBH^1.9369*HT^1.0579)*1)+((0.0063*DBH^2.0744*HT^0.6691)*0.66)+
+                      ((0.0150*DBH^2.9068*HT^-0.6306)*0.5))*0.75*0.5
+    } else if(Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0143*DBH^1.9369*HT^1.0579)*1)+((0.0063*DBH^2.0744*HT^0.6691)*0.39)+
+                      ((0.0150*DBH^2.9068*HT^-0.6306)*0.2))*0.868*0.5
+    } else if(Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0143*DBH^1.9369*HT^1.0579)*1)+((0.0063*DBH^2.0744*HT^0.6691)*0.21)+
+                      ((0.0150*DBH^2.9068*HT^-0.6306)*0.1))*0.613*0.5
+    } else if(Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0143*DBH^1.9369*HT^1.0579)*1)+((0.0063*DBH^2.0744*HT^0.6691)*0)+
+                      ((0.0150*DBH^2.9068*HT^-0.6306)*0))*0.613*0.5
+    } else if(Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0143*DBH^1.9369*HT^1.0579)*1)+((0.0063*DBH^2.0744*HT^0.6691)*0)+
+                      ((0.0150*DBH^2.9068*HT^-0.6306)*0))*0.613*0.5
+    }
+  } else if (Species=="Ac"){
+    if (Tree_class == "3"){
+      SD_Sp_TC_C <-(((0.0051*DBH^1.0697*HT^2.2748)*1)+((0.0009*DBH^1.3061*HT^2.0109)*0.92)+
+                    ((0.0131*DBH^2.5760)*1))*1.006*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0051*DBH^1.0697*HT^2.2748)*1)+((0.0009*DBH^1.3061*HT^2.0109)*0.66)+
+                      ((0.0131*DBH^2.5760)*0.5))*0.793*0.5
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0051*DBH^1.0697*HT^2.2748)*1)+((0.0009*DBH^1.3061*HT^2.0109)*0.39)+
+                      ((0.0131*DBH^2.5760)*0.2))*0.868*0.5
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0051*DBH^1.0697*HT^2.2748)*1)+((0.0009*DBH^1.3061*HT^2.0109)*0.21)+
+                      ((0.0131*DBH^2.5760)*0.1))*0.613*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0051*DBH^1.0697*HT^2.2748)*1)+((0.0009*DBH^1.3061*HT^2.0109)*0)+
+                      ((0.0131*DBH^2.5760)*0))*0.613*0.5
+    }  else if (Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0051*DBH^1.0697*HT^2.2748)*1)+((0.0009*DBH^1.3061*HT^2.0109)*0)+
+                      ((0.0131*DBH^2.5760)*0))*0.613*0.5
+    }
+  } else if (Species == "Bl"){
+    if (Tree_class == "3"){
+    SD_Sp_TC_C <-(((0.0220*DBH^1.6469*HT^1.1714)*1)+((0.0061*DBH^1.8603*HT^0.7693)*0.92)+
+                    ((0.0265*DBH^3.6747*HT^-1.5958)*1))*1.04*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0220*DBH^1.6469*HT^1.1714)*1)+((0.0061*DBH^1.8603*HT^0.7693)*0.66)+
+                      ((0.0265*DBH^3.6747*HT^-1.5958)*0.5))*1.068*0.5
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0220*DBH^1.6469*HT^1.1714)*1)+((0.0061*DBH^1.8603*HT^0.7693)*0.39)+
+                      ((0.0265*DBH^3.6747*HT^-1.5958)*0.2))*1*0.5 
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0220*DBH^1.6469*HT^1.1714)*1)+((0.0061*DBH^1.8603*HT^0.7693)*0.21)+
+                      ((0.0265*DBH^3.6747*HT^-1.5958)*0.1))*0.696*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0220*DBH^1.6469*HT^1.1714)*1)+((0.0061*DBH^1.8603*HT^0.7693)*0)+
+                      ((0.0265*DBH^3.6747*HT^-1.5958)*0))*0.696*0.5
+    } else if (Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0220*DBH^1.6469*HT^1.1714)*1)+((0.0061*DBH^1.8603*HT^0.7693)*0)+
+                      ((0.0265*DBH^3.6747*HT^-1.5958)*0))*0.696*0.5
+    }  
+  } else if (Species == "Ep"){
+    if (Tree_class == "3"){
+    SD_Sp_TC_C <-(((0.0333*DBH^2.0794*HT^0.6811)*1)+((0.0079*DBH^1.9905*HT^0.6553)*0.92)+
+                    ((0.0253*DBH^3.1518*HT^-0.9083)*1))*1.016*0.5
+    } else if (Tree_class == "4") {
+      SD_Sp_TC_C <-(((0.0333*DBH^2.0794*HT^0.6811)*1)+((0.0079*DBH^1.9905*HT^0.6553)*0.66)+
+                      ((0.0253*DBH^3.1518*HT^-0.9083)*0.5))*0.713*0.5
+    } else if (Tree_class == "5") {
+      SD_Sp_TC_C <-(((0.0333*DBH^2.0794*HT^0.6811)*1)+((0.0079*DBH^1.9905*HT^0.6553)*0.39)+
+                      ((0.0253*DBH^3.1518*HT^-0.9083)*0.2))*0.777*0.5
+    } else if (Tree_class == "6") {
+      SD_Sp_TC_C <-(((0.0333*DBH^2.0794*HT^0.6811)*1)+((0.0079*DBH^1.9905*HT^0.6553)*0.21)+
+                      ((0.0253*DBH^3.1518*HT^-0.9083)*0.1))*0.439*0.5
+    } else if (Tree_class == "7") {
+      SD_Sp_TC_C <-(((0.0333*DBH^2.0794*HT^0.6811)*1)+((0.0079*DBH^1.9905*HT^0.6553)*0)+
+                      ((0.0253*DBH^3.1518*HT^-0.9083)*0))*0.439*0.5
+    } else if (Tree_class == "8") {
+      SD_Sp_TC_C <-(((0.0333*DBH^2.0794*HT^0.6811)*1)+((0.0079*DBH^1.9905*HT^0.6553)*0)+
+                      ((0.0253*DBH^3.1518*HT^-0.9083)*0))*0.439*0.5
+    }
+  } else if (Species == "Pl"){
+    if (Tree_class == "3"){
+    SD_Sp_TC_C <-(((0.0239*DBH^1.6827*HT^1.1878)*1)+((0.0117*DBH^1.6398*HT^0.6524)*0.92)+
+                    ((0.0285*DBH^3.3764*HT^-1.4395)*1))*0.98*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0239*DBH^1.6827*HT^1.1878)*1)+((0.0117*DBH^1.6398*HT^0.6524)*0.66)+
+                      ((0.0285*DBH^3.3764*HT^-1.4395)*0.5))*1.04*0.5  
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0239*DBH^1.6827*HT^1.1878)*1)+((0.0117*DBH^1.6398*HT^0.6524)*0.39)+
+                      ((0.0285*DBH^3.3764*HT^-1.4395)*0.2))*1.02*0.5
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0239*DBH^1.6827*HT^1.1878)*1)+((0.0117*DBH^1.6398*HT^0.6524)*0.21)+
+                      ((0.0285*DBH^3.3764*HT^-1.4395)*0.1))*0.727*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0239*DBH^1.6827*HT^1.1878)*1)+((0.0117*DBH^1.6398*HT^0.6524)*0)+
+                      ((0.0285*DBH^3.3764*HT^-1.4395)*0))*0.727*0.5  
+    } else if (Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0239*DBH^1.6827*HT^1.1878)*1)+((0.0117*DBH^1.6398*HT^0.6524)*0)+
+                      ((0.0285*DBH^3.3764*HT^-1.4395)*0))*0.727*0.5              
+    }
+  } else if (Species == "Sx"){
+    if (Tree_class == "3"){  
+    SD_Sp_TC_C <-(((0.0133*DBH^1.3303*HT^1.6877)*1)+((0.0086*DBH^1.6216*HT^0.8192)*0.92)+
+                    ((0.0428*DBH^2.7965*HT^-0.7328)*1))*0.996*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0133*DBH^1.3303*HT^1.6877)*1)+((0.0086*DBH^1.6216*HT^0.8192)*0.66)+
+                      ((0.0428*DBH^2.7965*HT^-0.7328)*0.5))*0.943*0.5
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0133*DBH^1.3303*HT^1.6877)*1)+((0.0086*DBH^1.6216*HT^0.8192)*0.39)+
+                      ((0.0428*DBH^2.7965*HT^-0.7328)*0.2))*0.991*0.5
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0133*DBH^1.3303*HT^1.6877)*1)+((0.0086*DBH^1.6216*HT^0.8192)*0.21)+
+                      ((0.0428*DBH^2.7965*HT^-0.7328)*0.1))*0.555*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0133*DBH^1.3303*HT^1.6877)*1)+((0.0086*DBH^1.6216*HT^0.8192)*0)+
+                      ((0.0428*DBH^2.7965*HT^-0.7328)*0))*0.555*0.5
+    } else if (Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0133*DBH^1.3303*HT^1.6877)*1)+((0.0086*DBH^1.6216*HT^0.8192)*0)+
+                      ((0.0428*DBH^2.7965*HT^-0.7328)*0))*0.555*0.5
+    }
+  } else if (Species == "Fd"){
+    if (Tree_class == "3"){
+    SD_Sp_TC_C <- (((0.0191*DBH^1.5365*HT^1.3634)*1)+((0.0083*DBH^2.4811)*0.92)+
+                    ((0.0351*DBH^2.2421)*1))*0.892*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <- (((0.0191*DBH^1.5365*HT^1.3634)*1)+((0.0083*DBH^2.4811)*0.66)+
+                       ((0.0351*DBH^2.2421)*0.5))*0.831*0.5
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <- (((0.0191*DBH^1.5365*HT^1.3634)*1)+((0.0083*DBH^2.4811)*0.39)+
+                       ((0.0351*DBH^2.2421)*0.2))*0.591*0.5
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <- (((0.0191*DBH^1.5365*HT^1.3634)*1)+((0.0083*DBH^2.4811)*0.21)+
+                       ((0.0351*DBH^2.2421)*0.1))*0.433*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <- (((0.0191*DBH^1.5365*HT^1.3634)*1)+((0.0083*DBH^2.4811)*0)+
+                       ((0.0351*DBH^2.2421)*0))*0.433*0.5
+    } else if (Tree_class == "8"){
+      SD_Sp_TC_C <- (((0.0191*DBH^1.5365*HT^1.3634)*1)+((0.0083*DBH^2.4811)*0)+
+                       ((0.0351*DBH^2.2421)*0))*0.433*0.5
+    }  
+  } else if (Species == "UC"){
+    if (Tree_class == "3"){
+    SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.92)+
+                    ((0.0313*DBH^2.9974*HT^-1.0383)*1))*1.005*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.66)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0.5))*1.017*0.5
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.39)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0.2))*1.004*0.5
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.21)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0.1))*0.659*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0))*0.659*0.5
+    } else if (Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0))*0.659*0.5
+    }
+  } else if(Species=="Lw"){ #Using Unknown conifer
+    if (Tree_class == "3"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.92)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*1))*0.994*0.5
+    } else if (Tree_class == "4"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.66)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0.5))*0.951*0.5
+    } else if (Tree_class == "5"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.39)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0.2))*0.902*0.5
+    } else if (Tree_class == "6"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0.21)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0.1))*0.605*0.5
+    } else if (Tree_class == "7"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0))*0.605*0.5
+    } else if (Tree_class == "8"){
+      SD_Sp_TC_C <-(((0.0276*DBH^1.6868*HT^1.0953)*1)+((0.0101*DBH^1.8486*HT^0.5525)*0)+
+                      ((0.0313*DBH^2.9974*HT^-1.0383)*0))*0.605*0.5
+    }
+  } else {
+    print(paste("Species",Species,"not found"))
+    SD_Sp_TC_C <- NA
+  }
+  return(SD_Sp_TC_C)
+}
+
+# cwdCARBON (Mg/ha) = volume(m3/ha)
 #                     x structural reduction factor # decay class specific (Fraver et al. 2013)
 #                     x Absolute density(g/cm3) # species and decay class specific (Harmon et al. 2008)
 #                     x CarbonConcentration # species and decay class specific (Harmon et al. 2013)
@@ -168,7 +367,7 @@ cwdCarbonFN <- function(volume_ha, Decay_class, Species){
 }
 
 
-# fwdCARBON (T/ha) = volume(m3/ha)
+# fwdCARBON (Mg/ha) = volume(m3/ha)
 #                     x Live wood density(g/cm3) # use unknown species (Harmon et al. 2008)
 #                     x Decay reduction factor for each size class (Harmon and Fasth website)
 #                     x CarbonConcentration # use 50% (Harmon and Fasth website)
