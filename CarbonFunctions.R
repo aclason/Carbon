@@ -16,8 +16,8 @@ Min_SOC <- function(Soc, BD, depth, CoarseFrags){
 # of biomass through decay (Domke et al. 2011). A species and decay class density reduction factor is applied, this 
 # accounts for the density loss through decay (Harmon et al. 2011). Carbon concentration is 0.5 (Harmon et al. 2013).
 
-# SDCarbon (Mg/ha) = BIOMASS x SRF x DCRF x Cconc
-# SDCarbon (Mg/ha) = ((Ywood*SRF) + (Ybark*SRF) + (Yfoliage*SRF) + (Ybranches*SRF)) X DCRF X Cconc
+# SDCarbon (kg) = BIOMASS x SRF x DCRF x Cconc
+# SDCarbon (kg) = ((Ywood*SRF) + (Ybark*SRF) + (Yfoliage*SRF) + (Ybranches*SRF)) X DCRF X Cconc
 TreeCarbonFN <- function(Species,DBH,HT,Tree_class){
   if(is.na(Species)){
     print(paste("Species is not found"))
@@ -286,6 +286,7 @@ TreeBiomassFN <- function(Species,DBH,HT){
   }
   return(Sp_C)
 }
+
 SDcarbonFN <- function(Species,Tree_class,DBH,HT){
   if(is.na(Species)){
     print(paste("Species is not found"))
@@ -612,3 +613,203 @@ fwdCarbonFN <- function(Diam_class, volume){
   }
   return(C)
 }
+
+#Regen biomass & carbon - Annigofer height allometric equation
+# Using the species allometric equation from Annighofer et al. (2016) - they are European species so we will use the 
+# same genus for our species. These equations use height. We will use the mid-point height for our height class regen.
+# y = B1 * H^B2
+# where y = biomass (g)
+# H = height (cm)
+# B1 and B2 = fitted coefficients from Annigofer et al. (2016)
+# *0.5 for carbon concentration
+
+RegenCarbonFN_Annigofer <- function(Species, Height_class){
+  if(is.na(Species)){
+    print(paste("Species is not found"))
+    Reg_C1 <- NA
+  } else if(Species == "At"){ # using Betula pendula
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.259*(15^2.132))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.259*(80^2.132))*0.5
+    }
+  }else if(Species=="Ac"){ # using Betula pendula
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.259*(15^2.132))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.259*(80^2.132))*0.5
+    }
+  } else if(Species=="Cw"){ # using Pseudotsuga menziesii
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.218*(15^2.269))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.218*(80^2.269))*0.5
+    }
+  } else if(Species=="Bl"){ # using Abies alba
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.169*(15^2.402))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.169*(80^2.402))*0.5
+    }  
+  } else if(Species=="Ep"){ # using Betula pendula
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.259*(15^2.132))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.259*(80^2.132))*0.5
+    }
+  } else if(Species=="Hw"){ # using Pseudotsuga menziesii
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.218*(15^2.269))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.218*(80^2.269))*0.5
+    }
+  } else if(Species=="Pl"){ # using Pinus sylvestris
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.015*(15^2.881))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.015*(80^2.881))*0.5
+    }
+  } else if(Species=="Sx"){ # using Picea abies
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.202*(15^2.329))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.202*(80^2.329))*0.5
+    }
+  } else if(Species=="Fd"){ # using correct species!
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.218*(15^2.269))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.218*(80^2.269))*0.5
+    }
+  } else if(Species=="UC"){ # average of conifers used
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.151*(15^2.470))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.218*(80^2.269))*0.5
+    }
+  } else if(Species=="Lw"){ # using Pinus sylvestris, fast growing?
+    if(Height_class == "0-30"){
+      Reg_C1 <-(0.015*(15^2.881))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <-(0.015*(80^2.881))*0.5
+  } else {
+    print(paste("Species",Species,"not found"))
+    Reg_C1 <- NA
+    }
+  }
+  return(Reg_C1)
+}
+
+
+
+#Regen biomass & carbon - Ung allometric equation
+# Using the species allometric equation from Ung et al. (2008) - DBH and height are required so we are going to use a 
+# very small DBH (0.1) and the mid-point height of the height class.  
+# ywood = ??wood1*D^(??wood2)*H^(??wood3)
+# ybark = ??bark1*D^(??bark2)*H^(??bark3)
+# yfoliage = ??foliage1*D^(??foliage2)*H^(??foliage3)
+# ytotal = ywood + ybark + ybranches
+# where D is DBH (cm)
+# H is height (m)
+# *0.5 for carbon concentration
+
+RegenCarbonFN_Ung <- function(Species, Height_class){ # Live_Dead - should we specify live and dead? Is it worth it?
+  if(is.na(Species)){
+    print(paste("Species is not found"))
+    Reg_C2 <- NA
+  } else if(Species == "At"){ 
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0143*0.1^1.9369*0.15^1.0579)+(0.0063*0.1^2.0744*0.15^0.6691)+
+         (0.0150*0.1^2.9068*0.15^-0.6306)+(0.0284*0.1^1.6020))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0143*0.1^1.9369*0.80^1.0579)+(0.0063*0.1^2.0744*0.80^0.6691)+
+                  (0.0150*0.1^2.9068*0.80^-0.6306)+(0.0284*0.1^1.6020))*0.5
+    }
+  }else if(Species=="Ac"){ 
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0051*0.1^1.0697*0.15^2.2748)+(0.0009*0.1^1.3061*0.15^2.0109)+
+                  (0.0131*0.1^2.5760)+(0.0224*0.15^1.8368))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0051*0.1^1.0697*0.80^2.2748)+(0.0009*0.1^1.3061*0.80^2.0109)+
+                  (0.0131*0.1^2.5760)+(0.0224*0.80^1.8368))*0.5
+    }
+  } else if(Species=="Cw"){ 
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0188*0.1^1.3376*0.15^1.5293)+(0.0002*0.1^2.4369*0.15^1.1315)+
+                   (0.0611*0.1^1.9208)+(0.1097*0.1^1.5530))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C1 <- ((0.0188*0.1^1.3376*0.80^1.5293)+(0.0002*0.1^2.4369*0.80^1.1315)+
+                   (0.0611*0.1^1.9208)+(0.1097*0.1^1.5530))*0.5
+    }
+  } else if(Species=="Bl"){ 
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0220*0.1^1.6469*0.15^1.1714)+(0.0061*0.1^1.8603*0.15^0.7693)+
+                   (0.0265*0.1^3.6747*0.15^-1.5958)+(0.0509*0.1^2.9909*0.15^-1.2271))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0220*0.1^1.6469*0.80^1.1714)+(0.0061*0.1^1.8603*0.80^0.7693)+
+                   (0.0265*0.1^3.6747*0.80^-1.5958)+(0.0509*0.1^2.9909*0.80^-1.2271))*0.5
+    }  
+  } else if(Species=="Ep"){ 
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0333*0.1^2.0794*0.15^0.6811)+(0.0079*0.1^1.9905*0.15^0.6553)+
+                   (0.0253*0.1^3.1518*0.15^-0.9083)+(0.1361*0.1^2.2978*0.15^-1.0934))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0333*0.1^2.0794*0.80^0.6811)+(0.0079*0.1^1.9905*0.80^0.6553)+
+                   (0.0253*0.1^3.1518*0.80^-0.9083)+(0.1361*0.1^2.2978*0.80^-1.0934))*0.5
+    }
+  } else if(Species=="Hw"){
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0113*0.1^1.9332*0.15^1.1125)+(0.0019*0.1^2.3356*0.15^0.6371)+
+                   (0.0609*0.1^2.0021)+(0.2656*0.1^2.0107*0.15^-0.7963))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0113*0.1^1.9332*0.80^1.1125)+(0.0019*0.1^2.3356*0.80^0.6371)+
+                   (0.0609*0.1^2.0021)+(0.2656*0.1^2.0107*0.80^-0.7963))*0.5
+    }
+  } else if(Species=="Pl"){
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0239*0.1^1.6827*0.15^1.1878)+(0.0117*0.1^1.6398*0.15^0.6524)+
+                   (0.0285*0.1^3.3764*0.15^-1.4395)+(0.0769*0.1^2.6834*0.15^-1.2484))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0239*0.1^1.6827*0.80^1.1878)+(0.0117*0.1^1.6398*0.80^0.6524)+
+                   (0.0285*0.1^3.3764*0.80^-1.4395)+(0.0769*0.1^2.6834*0.80^-1.2484))*0.5
+    }
+  } else if(Species=="Sx"){
+    if(Height_class == "0-30"){
+      Reg_C2 <-((0.0133*0.1^1.3303*0.15^1.6877)+(0.0086*0.1^1.6216*0.15^0.8192)+
+                  (0.0428*0.1^2.7965*0.15^-0.7328)+(0.0854*0.1^2.4388*0.15^-0.7630))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0133*0.1^1.3303*0.80^1.6877)+(0.0086*0.1^1.6216*0.80^0.8192)+
+                   (0.0428*0.1^2.7965*0.80^-0.7328)+(0.0854*0.1^2.4388*0.80^-0.7630))*0.5
+    }
+  } else if(Species=="Fd"){
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0191*0.1^1.5365*0.15^1.3634)+(0.0083*0.1^2.4811)+
+                   (0.0351*0.1^2.2421)+(0.0718*0.1^2.2935*0.15^-0.4744))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0191*0.1^1.5365*0.80^1.3634)+(0.0083*0.1^2.4811)+
+                   (0.0351*0.1^2.2421)+(0.0718*0.1^2.2935*0.80^-0.4744))*0.5
+    }
+  } else if(Species=="UC"){ # average of conifers used
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0276*0.1^1.6868*0.15^1.0953)+(0.0101*0.1^1.8486*0.15^0.5525)+
+                   (0.0313*0.1^2.9974*0.15^-1.0383)+(0.1379*0.1^2.3981*0.15^-1.0418))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0276*0.1^1.6868*0.80^1.0953)+(0.0101*0.1^1.8486*0.80^0.5525)+
+                   (0.0313*0.1^2.9974*0.80^-1.0383)+(0.1379*0.1^2.3981*0.80^-1.0418))*0.5
+    }
+  } else if(Species=="Lw"){
+    if(Height_class == "0-30"){
+      Reg_C2 <- ((0.0276*0.1^1.6868*0.15^1.0953)+(0.0101*0.1^1.8486*0.15^0.5525)+
+                   (0.0313*0.1^2.9974*0.15^-1.0383)+(0.1379*0.1^2.3981*0.15^-1.0418))*0.5
+    } else if (Height_class == "31-130"){
+      Reg_C2 <- ((0.0276*0.1^1.6868*0.80^1.0953)+(0.0101*0.1^1.8486*0.80^0.5525)+
+                   (0.0313*0.1^2.9974*0.80^-1.0383)+(0.1379*0.1^2.3981*0.80^-1.0418))*0.5
+    } else {
+      print(paste("Species",Species,"not found"))
+      Reg_C2 <- NA
+    }
+  }
+  return(Reg_C2)
+}
+
+
