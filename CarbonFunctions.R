@@ -645,7 +645,7 @@ fwdCarbonFN <- function(Diam_class, volume){
 
 #Regen biomass & carbon - Annigofer height allometric equation
 # Using the species allometric equation from Annighofer et al. (2016) - they are European species so we will use the 
-# same genus for our species. These equations use height. We will use the mid-point height for our height class regen.
+# broadleaf and conifer. These equations use height. We will use the mid-point height for our height class regen.
 # y = B1 * H^B2
 # where y = biomass (g)
 # H = height (cm)
@@ -656,79 +656,78 @@ RegenCarbonFN_Annigofer <- function(Species, Height_class){
   if(is.na(Species)){
     print(paste("Species is not found"))
     Reg_C1 <- NA
-  } else if(Species == "At"){ # using Betula pendula
+  } else if(Species == "At"){ # using broadleaf
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.259*(15^2.132))*0.5
+      Reg_C1 <-(0.002*(15^2.249))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.259*(80^2.132))*0.5
+      Reg_C1 <-(0.002*(80^2.249))*0.5
     }
-  }else if(Species=="Ac"){ # using Betula pendula
+  }else if(Species=="Ac"){ # using broadleaf
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.259*(15^2.132))*0.5
+      Reg_C1 <-(0.002*(15^2.249))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.259*(80^2.132))*0.5
+      Reg_C1 <-(0.002*(80^2.249))*0.5
     }
-  } else if(Species=="Cw"){ # using Pseudotsuga menziesii
+  } else if(Species=="Cw"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.218*(15^2.269))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.218*(80^2.269))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.5
     }
-  } else if(Species=="Bl"){ # using Abies alba
+  } else if(Species=="Bl"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.169*(15^2.402))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.169*(80^2.402))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.5
     }  
-  } else if(Species=="Ep"){ # using Betula pendula
+  } else if(Species=="Ep"){ # using broadleaf
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.259*(15^2.132))*0.5
+      Reg_C1 <-(0.002*(15^2.249))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.259*(80^2.132))*0.5
+      Reg_C1 <-(0.002*(80^2.249))*0.5
     }
-  } else if(Species=="Hw"){ # using Pseudotsuga menziesii
+  } else if(Species=="Hw"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.218*(15^2.269))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.218*(80^2.269))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.5
     }
-  } else if(Species=="Pl"){ # using Pinus sylvestris
+  } else if(Species=="Pl"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.015*(15^2.881))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.015*(80^2.881))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.5
     }
-  } else if(Species=="Sx"){ # using Picea abies
+  } else if(Species=="Sx"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.202*(15^2.329))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.202*(80^2.329))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.5
     }
-  } else if(Species=="Fd"){ # using correct species!
+  } else if(Species=="Fd"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.218*(15^2.269))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.218*(80^2.269))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.55
     }
-  } else if(Species=="UC"){ # average of conifers used
+  } else if(Species=="UC"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.151*(15^2.470))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.218*(80^2.269))*0.5
+      Reg_C1 <-(0.024*(80^1.982))*0.5
     }
-  } else if(Species=="Lw"){ # using Pinus sylvestris, fast growing?
+  } else if(Species=="Lw"){ # using conifer
     if(Height_class == "0-30"){
-      Reg_C1 <-(0.015*(15^2.881))*0.5
+      Reg_C1 <-(0.024*(15^1.982))*0.5
     } else if (Height_class == "31-130"){
-      Reg_C1 <-(0.015*(80^2.881))*0.5
-  } else {
-    print(paste("Species",Species,"not found"))
-    Reg_C1 <- NA
+      Reg_C1 <-(0.024*(80^1.982))*0.5
+    } else {
+      print(paste("Species",Species,"not found"))
+      Reg_C1 <- NA
     }
   }
   return(Reg_C1)
 }
-
 
 
 
