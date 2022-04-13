@@ -15,7 +15,7 @@ DiamHgtFN <- function(Species, DBH){
   } else if(Species == "Pl"){
     HT <- 1.35 + (23.346836 - 1.35)*(1 - exp(-(0.0707280)*DBH)) 
   } else if(Species == "Bl"){
-    HT <- 1.35 + (30.000000 - 1.35)*(1 - exp(-(0.0305068)*DBH)) 
+    HT <- 1.35 + (30.000000 - 1.35)*(1 - exp(-(0.03496783)*DBH)) 
   } else if(Species == "At"){
     HT <- 1.35 + (33.530000 - 1.35)*(1 - exp(-(0.0374600)*DBH)) 
   } else if(Species == "Lw"){

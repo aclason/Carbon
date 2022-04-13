@@ -7,11 +7,11 @@ Min_SOC <- function(Soc, BD, depth, CoarseFrags){
 }
 
 ############ Tree carbon (kg/tree) ############
-#could make this more generic by accepting different ways of writing species for instance.
+# Could make this more generic by accepting different ways of writing species for instance.
 # Biomass is calculated using Ung et al. 2008 allometric equations. biomass is in kg. 
 # The carbon multiplier (0.5) is applied directly here, resulting in carbon in kg/tree
 
-# Standing dead (SD) carbonA decay class and species specificstructural reduction
+# Standing dead (SD) carbonA decay class and species specific structural reduction
 # factor is applied to each of the components of the allometric equation i.e. bark, bole, top. This accounts for the loss 
 # of biomass through decay (Domke et al. 2011). A species and decay class density reduction factor is applied, this 
 # accounts for the density loss through decay (Harmon et al. 2011). Carbon concentration is 0.5 (Harmon et al. 2013).
