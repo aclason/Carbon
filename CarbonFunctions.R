@@ -575,7 +575,67 @@ cwdCarbonFN <- function(volume_ha, Decay_class, Species){
     } else if (Decay_class == "5") {
       DC_Sp_C <-(volume_ha*0.412*0.117*0.521)
     }
-  } else if (Species == "UC"){
+  } else if (Species == "Ba"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.36*0.487)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.332*0.485)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.212*0.505)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.142*0.521)
+    } else if (Decay_class == "5"){
+      DC_Sp_C <-(volume_ha*0.412*0.106*0.535)
+    }
+  } else if (Species == "Hw"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.399*0.484)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.346*0.498)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.258*0.515)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.166*0.534)
+    } else if (Decay_class == "5"){
+      DC_Sp_C <-(volume_ha*0.412*0.108*0.57)
+    }
+  } else if (Species == "Cw"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.318*0.496)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.259*0.498)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.248*0.505)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.132*0.521)
+    } else if (Decay_class == "5"){
+      DC_Sp_C <-(volume_ha*0.412*0.143*0.535)
+    }
+  } else if (Species == "Fd"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.386*0.488)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.308*0.499)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.152*0.495)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.123*0.539)
+    } else if (Decay_class == "5"){
+      DC_Sp_C <-(volume_ha*0.412*0.148*0.558)
+    }
+  } else if (Species == "Lw"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.381*0.496)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.318*0.498)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.257*0.505)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.162*0.521)
+    } else if (Decay_class == "5"){
+      DC_Sp_C <-(volume_ha*0.412*0.143*0.535)
+    }
+  } else if (Species == "UC"){ # Bl, Sx, Pl average
     if (Decay_class == "1"){
       DC_Sp_C <-(volume_ha*1*0.381*0.496)
     } else if (Decay_class == "2"){
@@ -611,7 +671,31 @@ cwdCarbonFN <- function(volume_ha, Decay_class, Species){
     } else if (Decay_class == "5") {
       DC_Sp_C <-(volume_ha*0.412*0.11*0.473)
     }
-  } else if (Species == "UD"){
+  } else if (Species == "Ac"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.353*0.478)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.422*0.477)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.299*0.481)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.16*0.474)
+    } else if (Decay_class == "5"){
+      DC_Sp_C <-(volume_ha*0.412*0.11*0.473)
+    }
+  } else if (Species == "Dr"){
+    if (Decay_class == "1"){
+      DC_Sp_C <-(volume_ha*1*0.386*0.482)
+    } else if (Decay_class == "2"){
+      DC_Sp_C <-(volume_ha*1*0.326*0.481)
+    } else if (Decay_class == "3"){
+      DC_Sp_C <-(volume_ha*1*0.197*0.482)
+    } else if (Decay_class == "4"){
+      DC_Sp_C <-(volume_ha*0.8*0.108*0.492)
+    } else if (Decay_class == "5") {
+      DC_Sp_C <-(volume_ha*0.412*0.117*0.455)
+    }
+  } else if (Species == "UD"){ # Ac, At, Ep average
     if (Decay_class == "1"){
       DC_Sp_C <-(volume_ha*1*0.392*0.478)
     } else if (Decay_class == "2"){
@@ -623,7 +707,7 @@ cwdCarbonFN <- function(volume_ha, Decay_class, Species){
     } else if (Decay_class == "5"){
       DC_Sp_C <-(volume_ha*0.412*0.11*0.473)
     }
-  } else if (Species == "U"){
+  } else if (Species == "U"){ # Bl, Sx, Pl, Ac, At, Ep average
     if (Decay_class == "1"){
       DC_Sp_C <-(volume_ha*1*0.386*0.487)
     } else if (Decay_class == "2"){
