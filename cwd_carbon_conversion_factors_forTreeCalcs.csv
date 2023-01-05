@@ -1,0 +1,49 @@
+﻿Species,CommonName,DecayClass,Absolute density_g.cm3,RelativeDensity,StructuralReductionFactor,CarbonConversionFactor
+Abies lasiocarpa,Subalpine fir,0,0.31,0.31,NA,0.493
+Abies lasiocarpa,Subalpine fir,1,0.371,1,1,0.498
+Abies lasiocarpa,Subalpine fir,2,0.288,0.929,1,0.501
+Abies lasiocarpa,Subalpine fir,3,0.233,0.752,1,0.498
+Abies lasiocarpa,Subalpine fir,4,0.152,0.49,0.8,0.501
+Abies lasiocarpa,Subalpine fir,5,0.117,0.011,0.412,0.521
+Picea glauca,White spruce,0,0.37,0.37,NA,0.493
+Picea glauca,White spruce,1,0.393,0.998,1,0.496
+Picea glauca,White spruce,2,0.312,0.858,1,0.498
+Picea glauca,White spruce,3,0.28,0.745,1,0.505
+Picea glauca,White spruce,4,0.155,0.426,0.8,0.527
+Picea glauca,White spruce,5,0.129,0.347,0.412,0.535
+Picea engelmannii,Engelmann spruce,0,0.33,0.33,NA,0.493
+Picea engelmannii,Engelmann spruce,1,0.393,0.916,1,0.496
+Picea engelmannii,Engelmann spruce,2,0.258,0.782,1,0.498
+Picea engelmannii,Engelmann spruce,3,0.28,0.745,1,0.505
+Picea engelmannii,Engelmann spruce,4,0.117,0.355,0.8,0.521
+Picea engelmannii,Engelmann spruce,5,0.129,0.347,0.412,0.535
+Picea engelmannii x glauca,Hybrid spruce,0,0.35,0.35,NA,0.493
+Picea engelmannii x glauca,Hybrid spruce,1,0.393,0.957,1,0.496
+Picea engelmannii x glauca,Hybrid spruce,2,0.285,0.82,1,0.498
+Picea engelmannii x glauca,Hybrid spruce,3,0.28,0.745,1,0.505
+Picea engelmannii x glauca,Hybrid spruce,4,0.136,0.3905,0.8,0.521
+Picea engelmannii x glauca,Hybrid spruce,5,0.129,0.347,0.412,0.535
+Pinus contorta,Lodgepole pine,0,0.38,0.38,NA,0.493
+Pinus contorta,Lodgepole pine,1,0.378,0.977,1,0.497
+Pinus contorta,Lodgepole pine,2,0.367,0.956,1,0.496
+Pinus contorta,Lodgepole pine,3,0.276,0.809,1,0.499
+Pinus contorta,Lodgepole pine,4,0.169,0.512,0.8,0.519
+Pinus contorta,Lodgepole pine,5,0.164,0.432,0.412,0.526
+Betula papyrifera,Paper birch,0,0.48,0.48,NA,0.472
+Betula papyrifera,Paper birch,1,0.469,0.977,1,0.478
+Betula papyrifera,Paper birch,2,0.403,0.66,1,0.477
+Betula papyrifera,Paper birch,3,0.352,0.733,1,0.481
+Betula papyrifera,Paper birch,4,0.17,0.309,0.8,0.474
+Betula papyrifera,Paper birch,5,0.11,0.2,0.412,0.473
+Populus tremuloides,Trembling aspen,0,0.35,0.35,NA,0.472
+Populus tremuloides,Trembling aspen,1,0.353,0.967,1,0.488
+Populus tremuloides,Trembling aspen,2,0.422,0.734,1,0.489
+Populus tremuloides,Trembling aspen,3,0.299,0.819,1,0.495
+Populus tremuloides,Trembling aspen,4,0.16,0.432,0.8,0.465
+Populus tremuloides,Trembling aspen,5,0.11,0.297,0.412,0.473
+Populus balsamifera,Black cottonwood,0,0.31,0.31,NA,0.472
+Populus balsamifera,Black cottonwood,1,0.353,0.967,1,0.478
+Populus balsamifera,Black cottonwood,2,0.422,0.734,1,0.477
+Populus balsamifera,Black cottonwood,3,0.299,0.819,1,0.481
+Populus balsamifera,Black cottonwood,4,0.16,0.432,0.8,0.474
+Populus balsamifera,Black cottonwood,5,0.11,0.297,0.412,0.473
